@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Warehouse Ops Platform — Starter
 
 This repository is a starter scaffold for a guided warehouse workflows + training platform.
@@ -28,3 +29,6 @@ Next steps:
 - Add authentication (Clerk / NextAuth)
 - Build admin UI to create workflows and steps
 - Implement training/player UI and validation types
+=======
+# warehouse-ops-platform
+>>>>>>> d4b0646b5f73089e330ce5267fd7acca0e3adb94
