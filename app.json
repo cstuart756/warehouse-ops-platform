@@ -1,0 +1,28 @@
+{
+  "name": "warehouse-ops-platform-eu",
+  "description": "Guided warehouse workflows and training platform for office-to-floor operations.",
+  "repository": "https://github.com/cstuart756/warehouse-ops-platform",
+  "keywords": ["nextjs", "clerk", "prisma", "warehouse", "training", "workflow"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": {
+      "description": "Heroku Postgres connection string",
+      "required": true
+    },
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": {
+      "description": "Clerk publishable key",
+      "required": true
+    },
+    "CLERK_SECRET_KEY": {
+      "description": "Clerk secret key",
+      "required": true
+    }
+  },
+  "scripts": {
+    "postdeploy": "npx prisma generate"
+  }
+}
