@@ -1,34 +1,45 @@
-<<<<<<< HEAD
-# Warehouse Ops Platform — Starter
+# Warehouse Ops Platform
 
-This repository is a starter scaffold for a guided warehouse workflows + training platform.
+Guided warehouse workflows and training platform for office-to-floor operations.
 
-What is included:
-- Next.js (App Router) TypeScript scaffold
-- Tailwind CSS setup
-- Prisma schema and seed script
-- Simple API route: `/api/workflows`
-- Demo workflow seed
+## What’s included
 
-Quick start (PowerShell):
+- Next.js App Router application with TypeScript
+- Clerk authentication with protected task routes
+- Prisma schema, migrations, and seed script
+- Workflow admin builder and guided training player
+- Task execution flow with per-step progress tracking
+- GitHub Actions CI plus Heroku deployment workflow
+
+## Local setup
 
 ```powershell
 cd warehouse-ops-platform
 npm install
-# For local demo we use SQLite by default (no external DB required).
-# To use Postgres, set DATABASE_URL in .env.local before running migrations.
 npx prisma generate
 npm run prisma:migrate
 npm run prisma:seed
 npm run dev
 ```
 
-Deploy to Vercel and set `DATABASE_URL` in environment variables.
+## Environment variables
 
-Next steps:
-- Add authentication (Clerk / NextAuth)
-- Build admin UI to create workflows and steps
-- Implement training/player UI and validation types
-=======
-# warehouse-ops-platform
->>>>>>> d4b0646b5f73089e330ce5267fd7acca0e3adb94
+Copy [.env.example](.env.example) to `.env.local` and fill in the values for local development.
+
+## Heroku deployment
+
+Use the Heroku app name `warehouse-ops-platform-eu`.
+
+Required Heroku config vars:
+
+- `DATABASE_URL`
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `CLERK_SECRET_KEY`
+
+Deploys are handled by [.github/workflows/heroku-deploy.yml](.github/workflows/heroku-deploy.yml).
+
+## Suggested next steps
+
+- Connect a Postgres database in an EU region
+- Add Heroku config vars and run the first deploy
+- Replace demo content with live warehouse training materials
