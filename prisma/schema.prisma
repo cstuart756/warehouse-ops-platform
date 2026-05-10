@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// For local demo we default to SQLite. For production switch back to PostgreSQL
+// and set `DATABASE_URL` in your environment to your Postgres connection string.
+datasource db {
+  provider = "sqlite"
+  // Local dev default file DB. Change to env("DATABASE_URL") for Postgres in production.
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  role      String   @default("WORKER")
+  createdAt DateTime @default(now())
+  tasks     Task[]
+}
+
+model Workflow {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  steps       Step[]
+  createdAt   DateTime @default(now())
+}
+
+model Step {
+  id         String   @id @default(cuid())
+  title      String
+  content    String
+  videoUrl   String?
+  order      Int
+  workflow   Workflow @relation(fields: [workflowId], references: [id])
+  workflowId String
+  progress   Progress[]
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  workflowId  String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  status      String   @default("PENDING")
+  currentStep Int      @default(0)
+  createdAt   DateTime @default(now())
+  progress    Progress[]
+}
+
+model Progress {
+  id          String   @id @default(cuid())
+  stepId      String
+  step        Step     @relation(fields: [stepId], references: [id])
+  taskId      String
+  task        Task     @relation(fields: [taskId], references: [id])
+  startedAt   DateTime @default(now())
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+}

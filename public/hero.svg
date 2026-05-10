@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <rect width="1200" height="600" fill="#0f172a"/>
+  <g transform="translate(80,80)">
+    <rect x="0" y="0" width="480" height="440" rx="12" fill="#111827" />
+    <text x="40" y="60" fill="#f8fafc" font-size="36">Before</text>
+    <rect x="40" y="90" width="400" height="300" fill="#0b1220" rx="8" />
+  </g>
+
+  <g transform="translate(640,80)">
+    <rect x="0" y="0" width="480" height="440" rx="12" fill="#08233a" />
+    <text x="40" y="60" fill="#e6fffa" font-size="36">After</text>
+    <rect x="40" y="90" width="400" height="300" fill="#052639" rx="8" />
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+{
+  "name": "warehouse-ops-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "latest",
+    "@prisma/client": "4.15.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.2",
+    "@types/react": "19.2.14",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "prisma": "4.15.0",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  }
+}
