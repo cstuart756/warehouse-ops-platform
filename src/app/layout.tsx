@@ -1,6 +1,6 @@
-import './styles/globals.css'
+import '../styles/globals.css'
 import React from 'react'
-import ClerkProviderClient from '@/components/ClerkProviderClient'
+import ClerkProviderClient from '../components/ClerkProviderClient'
 
 export const metadata = {
   title: 'Warehouse Ops Platform',

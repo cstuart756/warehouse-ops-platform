@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { prisma } from '../../../../lib/prisma'
 import { auth } from '@clerk/nextjs/server'
 
 // POST create step
 export async function POST(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
@@ -27,7 +28,8 @@ export async function POST(req: Request) {
 // PUT update step
 export async function PUT(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
@@ -49,7 +51,8 @@ export async function PUT(req: Request) {
 // DELETE step
 export async function DELETE(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()

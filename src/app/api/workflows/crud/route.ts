@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { prisma } from '../../../../lib/prisma'
 import { auth } from '@clerk/nextjs/server'
 
 // GET all workflows or GET single workflow by ID
-export async function GET(req: Request, { params }: { params: { id?: string } }) {
+export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const id = searchParams.get('id')
@@ -29,7 +29,8 @@ export async function GET(req: Request, { params }: { params: { id?: string } })
 // POST create workflow
 export async function POST(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
@@ -49,7 +50,8 @@ export async function POST(req: Request) {
 // PUT update workflow
 export async function PUT(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
@@ -70,7 +72,8 @@ export async function PUT(req: Request) {
 // DELETE workflow
 export async function DELETE(req: Request) {
   try {
-    const { userId } = auth()
+    const session = await auth()
+    const userId = session?.userId
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()

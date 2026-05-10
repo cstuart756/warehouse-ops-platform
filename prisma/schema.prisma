@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
+  clerkId   String?  @unique
   name      String?
   email     String   @unique
   role      String   @default("WORKER")
@@ -24,6 +25,7 @@ model Workflow {
   title       String
   description String?
   steps       Step[]
+  tasks       Task[]
   createdAt   DateTime @default(now())
 }
 
@@ -41,6 +43,7 @@ model Step {
 model Task {
   id          String   @id @default(cuid())
   workflowId  String
+  workflow    Workflow @relation(fields: [workflowId], references: [id])
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   status      String   @default("PENDING")

@@ -5,3 +5,7 @@ node_modules
 .DS_Store
 coverage
 /public/favicon.ico
+
+# clerk configuration (can include secrets)
+/.clerk/
+/prisma/*.db-journal

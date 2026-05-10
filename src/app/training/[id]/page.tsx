@@ -43,8 +43,21 @@ export default function TrainingPage() {
   if (loading) return <div className="p-6">Loading training...</div>
   if (!workflow) return <div className="p-6">Workflow not found</div>
 
-  const step = workflow.steps[currentStep]
-  const isLastStep = currentStep === workflow.steps.length - 1
+  const steps = workflow.steps ?? []
+  if (!steps.length) {
+    return (
+      <div className="p-6">
+        <h1 className="text-3xl font-bold mb-2">{workflow.title}</h1>
+        <div className="bg-white rounded shadow p-8 text-gray-700">
+          This training workflow has no steps yet.
+        </div>
+      </div>
+    )
+  }
+
+  const safeStepIndex = Math.min(currentStep, steps.length - 1)
+  const step = steps[safeStepIndex]
+  const isLastStep = safeStepIndex === steps.length - 1
 
   return (
     <div className="p-6">
@@ -52,14 +65,14 @@ export default function TrainingPage() {
       <div className="mb-6 w-full bg-gray-200 h-2 rounded">
         <div
           className="bg-blue-600 h-2 rounded transition-all"
-          style={{ width: `${((currentStep + 1) / workflow.steps.length) * 100}%` }}
+          style={{ width: `${((safeStepIndex + 1) / steps.length) * 100}%` }}
         />
       </div>
 
       {step && (
         <div className="bg-white rounded shadow p-8">
           <div className="text-sm text-gray-600 mb-4">
-            Step {currentStep + 1} of {workflow.steps.length}
+            Step {safeStepIndex + 1} of {steps.length}
           </div>
 
           <h2 className="text-2xl font-semibold mb-4">{step.title}</h2>
@@ -82,8 +95,8 @@ export default function TrainingPage() {
 
           <div className="flex gap-4">
             <button
-              onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-              disabled={currentStep === 0}
+              onClick={() => setCurrentStep(Math.max(0, safeStepIndex - 1))}
+              disabled={safeStepIndex === 0}
               className="px-6 py-2 bg-gray-300 rounded disabled:opacity-50"
             >
               Back
@@ -91,7 +104,7 @@ export default function TrainingPage() {
 
             {!isLastStep ? (
               <button
-                onClick={() => setCurrentStep(currentStep + 1)}
+                onClick={() => setCurrentStep(Math.min(steps.length - 1, safeStepIndex + 1))}
                 className="px-6 py-2 bg-blue-600 text-white rounded"
               >
                 Next
