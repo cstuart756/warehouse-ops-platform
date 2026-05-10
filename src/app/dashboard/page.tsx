@@ -3,7 +3,20 @@
 import React from 'react'
 import { useUser, SignInButton, SignOutButton } from '@clerk/nextjs'
 
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+
 export default function DashboardPage() {
+  if (!publishableKey) {
+    return (
+      <div className="p-6 bg-white rounded shadow">
+        <h2 className="text-xl font-semibold mb-4">Dashboard</h2>
+        <p className="text-sm text-gray-600">
+          Clerk is not configured in this environment yet, so authentication controls are hidden.
+        </p>
+      </div>
+    )
+  }
+
   const { isLoaded, isSignedIn, user } = useUser()
 
   if (!isLoaded) return <div>Loading...</div>
