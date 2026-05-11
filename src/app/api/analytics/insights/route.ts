@@ -1,7 +1,31 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
-import { detectAnomalies } from "@/lib/anomaly";
-import { generateRecommendations } from "@/lib/recommendations";
+
+function detectAnomalies(stepStats: any) {
+  const anomalies: string[] = [];
+  const { dropOffRate, avgTime, baselineTime, escalationRate } = stepStats;
+  if (dropOffRate > 40) anomalies.push("High drop-off rate detected");
+  if (baselineTime && avgTime > baselineTime * 1.5) anomalies.push("Step execution time increasing abnormally");
+  if (escalationRate > 20) anomalies.push("High escalation frequency");
+  return anomalies;
+}
+
+function generateRecommendations(stepStats: any, anomalies: string[]) {
+  const recommendations: string[] = [];
+  if (anomalies.includes("High drop-off rate detected")) {
+    recommendations.push("Simplify step instructions or add clearer video guidance");
+    recommendations.push("Break step into smaller sub-steps");
+  }
+  if (anomalies.includes("Step execution time increasing abnormally")) {
+    recommendations.push("Reduce cognitive load (too many actions in one step)");
+    recommendations.push("Add visual aids or checklist format");
+  }
+  if (anomalies.includes("High escalation frequency")) {
+    recommendations.push("Clarify error handling procedures");
+    recommendations.push("Add proactive validation messages");
+  }
+  return recommendations;
+}
 
 export async function GET() {
   try {

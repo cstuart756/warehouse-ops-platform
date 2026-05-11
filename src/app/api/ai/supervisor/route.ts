@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 
 export async function POST(req: Request) {
   try {
@@ -12,27 +12,32 @@ export async function POST(req: Request) {
       );
     }
 
-    // Get recent incidents for context
-    const incidents = await prisma.incident?.findMany?.({
-      include: { user: true, step: true, workflow: true },
-      take: 20,
-      orderBy: { createdAt: "desc" },
-    }) ?? [];
+    // Get recent incidents for context (use progress data instead)
+    const incidentSteps = await prisma.progress
+      .findMany({
+        include: { step: true, user: true, workflow: true },
+        where: { completed: false },
+        take: 20,
+        orderBy: { startedAt: "desc" },
+      })
+      .catch(() => []);
 
     // Get recent step progress for context
-    const recentProgress = await prisma.progress?.findMany?.({
-      include: { step: true },
-      take: 20,
-      orderBy: { startedAt: "desc" },
-    }) ?? [];
+    const recentProgress = await prisma.progress
+      .findMany({
+        include: { step: true },
+        take: 20,
+        orderBy: { startedAt: "desc" },
+      })
+      .catch(() => []);
 
     const context = {
       question,
-      incidentContext: incidents.map((i: any) => ({
-        user: i.user?.email,
-        step: i.step?.title,
-        workflow: i.workflow?.title,
-        status: i.status,
+      incidentContext: incidentSteps.map((p: any) => ({
+        user: p.user?.email,
+        step: p.step?.title,
+        workflow: p.workflow?.title,
+        status: p.completed ? "Completed" : "In Progress",
       })),
       progressContext: recentProgress.map((p: any) => ({
         step: p.step?.title,
