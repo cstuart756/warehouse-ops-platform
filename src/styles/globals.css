@@ -2,5 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #__next { height: 100%; }
-body { background-color: #F9FAFB; color: #111827; }
+html,
+body,
+#__next {
+	height: 100%;
+}
+
+body {
+	color: #d6e8f5;
+	background:
+		radial-gradient(circle at 12% 8%, rgba(15, 76, 129, 0.45), transparent 35%),
+		radial-gradient(circle at 88% 18%, rgba(11, 110, 138, 0.32), transparent 38%),
+		linear-gradient(135deg, #040912 0%, #071223 35%, #08182a 100%);
+}
+
+* {
+	border-color: rgba(125, 180, 218, 0.22);
+}
+
+.headline-gradient {
+	background: linear-gradient(95deg, #ecf8ff 8%, #9cefff 46%, #5fd4ff 92%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.glass-card {
+	background: linear-gradient(160deg, rgba(11, 33, 53, 0.86) 0%, rgba(8, 20, 36, 0.82) 100%);
+	border: 1px solid rgba(128, 191, 225, 0.24);
+	box-shadow:
+		0 14px 40px rgba(0, 0, 0, 0.28),
+		inset 0 1px 0 rgba(197, 233, 255, 0.12);
+	backdrop-filter: blur(4px);
+}
+
+.section-glow {
+	position: relative;
+	overflow: hidden;
+}
+
+.section-glow::before {
+	content: '';
+	position: absolute;
+	inset: -30% 25% auto -30%;
+	height: 340px;
+	border-radius: 9999px;
+	background: radial-gradient(circle, rgba(75, 213, 255, 0.22), transparent 70%);
+	pointer-events: none;
+}
+
+.hero-noise {
+	background-image:
+		linear-gradient(115deg, rgba(29, 150, 184, 0.16), rgba(7, 12, 24, 0.2)),
+		repeating-linear-gradient(
+			90deg,
+			rgba(142, 195, 227, 0.06) 0,
+			rgba(142, 195, 227, 0.06) 1px,
+			transparent 1px,
+			transparent 60px
+		);
+}
+
+.stagger-fade {
+	opacity: 0;
+	transform: translateY(14px);
+	animation: riseIn 0.75s ease forwards;
+}
+
+.stagger-fade.delay-1 {
+	animation-delay: 0.08s;
+}
+
+.stagger-fade.delay-2 {
+	animation-delay: 0.16s;
+}
+
+.stagger-fade.delay-3 {
+	animation-delay: 0.24s;
+}
+
+.soft-float {
+	animation: softFloat 8s ease-in-out infinite;
+}
+
+@keyframes riseIn {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes softFloat {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.stagger-fade,
+	.soft-float {
+		animation: none;
+		opacity: 1;
+		transform: none;
+	}
+}
