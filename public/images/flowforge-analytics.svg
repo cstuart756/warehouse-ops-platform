@@ -1,0 +1,50 @@
+<svg width="1400" height="800" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FlowForge analytics dashboard card">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1a2c"/>
+      <stop offset="100%" stop-color="#0c2f4b"/>
+    </linearGradient>
+    <linearGradient id="good" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#27d4ff"/>
+      <stop offset="100%" stop-color="#6ef0ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="800" fill="url(#bg)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="80" y="96" font-size="46" font-weight="700" fill="#d9f9ff">Performance Snapshot</text>
+    <text x="80" y="136" font-size="22" fill="#a3dded">Measure workflow completion, errors, and efficiency in one view.</text>
+  </g>
+
+  <g transform="translate(80 190)">
+    <rect width="380" height="220" rx="24" fill="#11304b" stroke="#2dbde0"/>
+    <text x="30" y="56" font-size="26" font-weight="700" fill="#d9f9ff" font-family="Segoe UI, Arial, sans-serif">Completion Rate</text>
+    <text x="30" y="132" font-size="74" font-weight="700" fill="#6ef0ff" font-family="Segoe UI, Arial, sans-serif">94%</text>
+    <rect x="30" y="164" width="320" height="16" rx="8" fill="#1d4f71"/>
+    <rect x="30" y="164" width="301" height="16" rx="8" fill="url(#good)"/>
+  </g>
+
+  <g transform="translate(510 190)">
+    <rect width="380" height="220" rx="24" fill="#11304b" stroke="#2dbde0"/>
+    <text x="30" y="56" font-size="26" font-weight="700" fill="#d9f9ff" font-family="Segoe UI, Arial, sans-serif">Error Reduction</text>
+    <text x="30" y="132" font-size="74" font-weight="700" fill="#6ef0ff" font-family="Segoe UI, Arial, sans-serif">-40%</text>
+    <polyline points="30,178 90,166 150,170 210,150 270,134 330,120" fill="none" stroke="#6ef0ff" stroke-width="6"/>
+  </g>
+
+  <g transform="translate(940 190)">
+    <rect width="380" height="220" rx="24" fill="#11304b" stroke="#2dbde0"/>
+    <text x="30" y="56" font-size="26" font-weight="700" fill="#d9f9ff" font-family="Segoe UI, Arial, sans-serif">Training Speed</text>
+    <text x="30" y="132" font-size="74" font-weight="700" fill="#6ef0ff" font-family="Segoe UI, Arial, sans-serif">2.1x</text>
+    <rect x="30" y="164" width="140" height="16" rx="8" fill="#1d4f71"/>
+    <rect x="190" y="164" width="160" height="16" rx="8" fill="#1d4f71"/>
+    <rect x="30" y="164" width="140" height="16" rx="8" fill="#2cc8ea"/>
+    <rect x="190" y="164" width="160" height="16" rx="8" fill="#6ef0ff"/>
+  </g>
+
+  <g transform="translate(80 460)">
+    <rect width="1240" height="260" rx="24" fill="#0f2a42" stroke="#2dbde0"/>
+    <text x="30" y="56" font-size="30" font-weight="700" fill="#d9f9ff" font-family="Segoe UI, Arial, sans-serif">Workflow Efficiency Trend</text>
+    <polyline points="30,198 210,176 390,180 570,150 750,136 930,108 1110,92" fill="none" stroke="#6ef0ff" stroke-width="8"/>
+    <circle cx="1110" cy="92" r="8" fill="#6ef0ff"/>
+  </g>
+</svg>

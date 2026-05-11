@@ -1,0 +1,58 @@
+<svg width="1400" height="820" viewBox="0 0 1400 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FlowForge architecture diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#091725"/>
+      <stop offset="100%" stop-color="#0f2741"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#12324f"/>
+      <stop offset="100%" stop-color="#0f263d"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5fe5ff"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="820" fill="url(#bg)"/>
+
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#d6f7ff">
+    <text x="70" y="90" font-size="48" font-weight="700">Operational Architecture</text>
+    <text x="70" y="132" font-size="22" fill="#9ddcf0">Office systems coordinate with FlowForge and warehouse execution in real time.</text>
+  </g>
+
+  <g transform="translate(90 220)">
+    <rect width="340" height="240" rx="22" fill="url(#card)" stroke="#3cb2d6"/>
+    <text x="32" y="54" font-size="34" font-weight="700" fill="#d5f8ff" font-family="Segoe UI, Arial, sans-serif">Office</text>
+    <rect x="30" y="84" width="280" height="22" rx="11" fill="#1e4a6f"/>
+    <rect x="30" y="122" width="250" height="22" rx="11" fill="#1e4a6f"/>
+    <rect x="30" y="160" width="220" height="22" rx="11" fill="#1e4a6f"/>
+  </g>
+
+  <g transform="translate(530 180)">
+    <rect width="340" height="320" rx="24" fill="#112d47" stroke="#69ecff" stroke-width="2"/>
+    <text x="48" y="64" font-size="38" font-weight="700" fill="#e2fbff" font-family="Segoe UI, Arial, sans-serif">FlowForge</text>
+    <rect x="36" y="104" width="268" height="24" rx="12" fill="#205980"/>
+    <rect x="36" y="144" width="230" height="24" rx="12" fill="#205980"/>
+    <rect x="36" y="184" width="280" height="24" rx="12" fill="#205980"/>
+    <rect x="36" y="236" width="126" height="46" rx="14" fill="#29d7ff"/>
+    <rect x="176" y="236" width="128" height="46" rx="14" fill="#143854" stroke="#5fe5ff"/>
+  </g>
+
+  <g transform="translate(970 220)">
+    <rect width="340" height="240" rx="22" fill="url(#card)" stroke="#3cb2d6"/>
+    <text x="32" y="54" font-size="34" font-weight="700" fill="#d5f8ff" font-family="Segoe UI, Arial, sans-serif">Warehouse</text>
+    <rect x="30" y="84" width="270" height="22" rx="11" fill="#1e4a6f"/>
+    <rect x="30" y="122" width="280" height="22" rx="11" fill="#1e4a6f"/>
+    <rect x="30" y="160" width="230" height="22" rx="11" fill="#1e4a6f"/>
+  </g>
+
+  <line x1="430" y1="340" x2="530" y2="340" stroke="#5fe5ff" stroke-width="6" marker-end="url(#arrow)"/>
+  <line x1="870" y1="340" x2="970" y2="340" stroke="#5fe5ff" stroke-width="6" marker-end="url(#arrow)"/>
+  <path d="M1130 500 C1130 640 700 700 420 640 C250 604 230 540 230 472" fill="none" stroke="#3cc7e3" stroke-width="5" stroke-dasharray="14 14" marker-end="url(#arrow)"/>
+
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#a6e8f7" font-weight="600">
+    <text x="450" y="314">Workflow sync</text>
+    <text x="900" y="314">Execution guidance</text>
+    <text x="560" y="718">Performance feedback loop</text>
+  </g>
+</svg>
