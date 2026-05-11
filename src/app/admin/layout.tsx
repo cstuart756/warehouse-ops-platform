@@ -13,8 +13,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">Admin Panel</h1>
             <nav className="space-x-4">
-              <Link href="/admin/workflows" className="text-blue-600">Workflows</Link>
-              <Link href="/dashboard" className="text-blue-600">Dashboard</Link>
+              <Link href="/admin/workflows" className="font-[var(--font-heading)] text-cyan-200 underline decoration-cyan-300/50 underline-offset-4 transition hover:text-cyan-100">Workflows</Link>
+              <Link href="/dashboard" className="font-[var(--font-heading)] text-cyan-200 underline decoration-cyan-300/50 underline-offset-4 transition hover:text-cyan-100">Dashboard</Link>
             </nav>
           </div>
         </header>
@@ -48,8 +48,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <h1 className="text-2xl font-bold">Admin Panel</h1>
           <div className="flex gap-4 items-center">
             <nav className="space-x-4">
-              <Link href="/admin/workflows" className="text-blue-600">Workflows</Link>
-              <Link href="/dashboard" className="text-blue-600">Dashboard</Link>
+              <Link href="/admin/workflows" className="font-[var(--font-heading)] text-cyan-200 underline decoration-cyan-300/50 underline-offset-4 transition hover:text-cyan-100">Workflows</Link>
+              <Link href="/dashboard" className="font-[var(--font-heading)] text-cyan-200 underline decoration-cyan-300/50 underline-offset-4 transition hover:text-cyan-100">Dashboard</Link>
             </nav>
             <SignOutButton />
           </div>

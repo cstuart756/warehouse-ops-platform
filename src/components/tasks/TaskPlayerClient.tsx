@@ -104,14 +104,14 @@ export default function TaskPlayerClient({ id }: { id: string }) {
                 return (
                   <li
                     key={step.id}
-                    className={`rounded border px-3 py-2 ${current ? 'border-blue-300 bg-blue-50' : 'border-gray-200 bg-white'}`}
+                    className={`rounded border px-3 py-2 ${current ? 'border-cyan-300 bg-cyan-50' : 'border-gray-200 bg-white'}`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="font-medium text-gray-900">{index + 1}. {step.title}</div>
                         <div className="text-xs text-gray-500">{done ? 'Completed' : current ? 'Current step' : 'Pending'}</div>
                       </div>
-                      <div className={`text-xs font-semibold ${done ? 'text-green-700' : current ? 'text-blue-700' : 'text-gray-400'}`}>
+                      <div className={`text-xs font-semibold ${done ? 'text-green-700' : current ? 'text-cyan-700' : 'text-gray-400'}`}>
                         {done ? 'Done' : current ? 'Now' : 'Next'}
                       </div>
                     </div>

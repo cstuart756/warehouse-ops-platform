@@ -149,7 +149,7 @@ export default function EditWorkflowPage() {
                 <div className="flex-1">
                   <div className="font-semibold text-sm">Step {step.order}: {step.title}</div>
                   <div className="text-xs text-gray-600 mt-1">{step.content.substring(0, 60)}...</div>
-                  {step.videoUrl && <div className="text-xs text-blue-600 mt-1">📹 {step.videoUrl}</div>}
+                  {step.videoUrl && <div className="mt-1 text-xs font-medium text-cyan-700">📹 {step.videoUrl}</div>}
                 </div>
                 <button
                   onClick={() => handleDeleteStep(step.id)}
