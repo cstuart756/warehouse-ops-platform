@@ -79,6 +79,10 @@ export async function GET() {
 
     return NextResponse.json(results);
   } catch (error) {
-    return NextResponse.json({ error: String(error) }, { status: 500 });
+    console.error("Error in /api/analytics/insights:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch insights", details: String(error) },
+      { status: 500 }
+    );
   }
 }

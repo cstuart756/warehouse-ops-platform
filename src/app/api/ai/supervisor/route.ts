@@ -76,10 +76,12 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ answer });
   } catch (error) {
-    // Fallback response if no database
+    console.error("Error in /api/ai/supervisor:", error);
+    // Fallback response if database error
     return NextResponse.json({
       answer:
         "Supervisor Assistant: I'm analyzing your warehouse operations. To provide AI-powered insights, ensure your database is connected. For now: 1) Review high drop-off steps, 2) Add training video guides, 3) Monitor escalation patterns.",
+      error: String(error),
     });
   }
 }

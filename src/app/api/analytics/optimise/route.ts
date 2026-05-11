@@ -60,6 +60,10 @@ export async function GET() {
       })
     );
   } catch (error) {
-    return NextResponse.json({ error: String(error) }, { status: 500 });
+    console.error("Error in /api/analytics/optimise:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch optimisation", details: String(error) },
+      { status: 500 }
+    );
   }
 }

@@ -52,6 +52,10 @@ export async function GET() {
       })
     );
   } catch (error) {
-    return NextResponse.json({ error: String(error) }, { status: 500 });
+    console.error("Error in /api/analytics/forecast:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch forecast", details: String(error) },
+      { status: 500 }
+    );
   }
 }
