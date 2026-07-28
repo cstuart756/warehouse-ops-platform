@@ -58,15 +58,17 @@ export default function Home() {
           </section>
         </section>
 
-        <section className="stagger-fade delay-2 glass-card overflow-hidden rounded-3xl p-3">
-          <Image
-            src="/images/flowforge-before-after.svg"
-            alt="Before and after comparison of warehouse operations with guided workflows"
-            width={1600}
-            height={900}
-            className="h-auto w-full rounded-2xl"
-            priority
-          />
+        <section className="stagger-fade delay-2 glass-card overflow-hidden rounded-3xl border border-cyan-200/20 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
+          <div className="overflow-hidden rounded-[1.25rem] bg-slate-950/70">
+            <Image
+              src="/images/flowforge-before-after.svg"
+              alt="Before and after comparison of warehouse operations with guided workflows"
+              width={1600}
+              height={900}
+              className="h-auto w-full rounded-[1.25rem] object-cover"
+              priority
+            />
+          </div>
         </section>
 
         <section className="stagger-fade delay-2 grid gap-6 lg:grid-cols-2">
@@ -140,14 +142,16 @@ export default function Home() {
           </article>
         </section>
 
-        <section className="stagger-fade delay-3 glass-card overflow-hidden rounded-3xl p-4">
-          <Image
-            src="/images/flowforge-funnel-map.svg"
-            alt="FlowForge conversion funnel map from hero to conversion"
-            width={1600}
-            height={900}
-            className="h-auto w-full rounded-2xl"
-          />
+        <section className="stagger-fade delay-3 glass-card overflow-hidden rounded-3xl border border-cyan-200/20 p-4">
+          <div className="overflow-hidden rounded-[1.25rem] bg-slate-950/70">
+            <Image
+              src="/images/flowforge-funnel-map.svg"
+              alt="FlowForge conversion funnel map from hero to conversion"
+              width={1600}
+              height={900}
+              className="h-auto w-full rounded-[1.25rem] object-cover"
+            />
+          </div>
         </section>
 
         <section className="stagger-fade delay-3 glass-card grid gap-6 rounded-3xl border border-cyan-200/35 bg-gradient-to-br from-cyan-500/14 to-sky-400/5 p-6 lg:grid-cols-[1.3fr_1fr]">
