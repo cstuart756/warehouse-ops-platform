@@ -27,10 +27,15 @@ export default function InsightsDashboard() {
 
   return (
     <div className="space-y-6 p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-[var(--font-heading)] text-3xl font-semibold text-white">
-          Operational Insights
-        </h1>
+      <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <h1 className="font-[var(--font-heading)] text-3xl font-semibold text-white">
+            Operational Insights
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm text-slate-400">
+            Monitor the health of active playbooks and highlight where interventions can keep throughput steady.
+          </p>
+        </div>
         <div className="flex gap-3">
           <Link
             href="/dashboard/ml"
@@ -47,14 +52,32 @@ export default function InsightsDashboard() {
         </div>
       </div>
 
+      <div className="grid gap-4 xl:grid-cols-3">
+        <div className="rounded-2xl border border-cyan-200/20 bg-slate-900/50 p-4">
+          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Live signals</div>
+          <div className="mt-3 text-3xl font-semibold text-white">{data.length}</div>
+          <p className="mt-2 text-sm text-slate-400">Active workflow observations currently surfaced.</p>
+        </div>
+        <div className="rounded-2xl border border-amber-300/20 bg-slate-900/50 p-4">
+          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Watchlist</div>
+          <div className="mt-3 text-3xl font-semibold text-white">{data.filter((step) => step.anomalies.length > 0).length}</div>
+          <p className="mt-2 text-sm text-slate-400">Steps with issues that need immediate attention.</p>
+        </div>
+        <div className="rounded-2xl border border-green-400/20 bg-slate-900/50 p-4">
+          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-green-300">Recommendations</div>
+          <div className="mt-3 text-3xl font-semibold text-white">{data.reduce((sum, step) => sum + step.recommendations.length, 0)}</div>
+          <p className="mt-2 text-sm text-slate-400">Suggested actions generated for the team.</p>
+        </div>
+      </div>
+
       <div className="space-y-4">
         {data.length === 0 ? (
-          <div className="glass-card rounded-2xl p-6">
+          <div className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-6">
             <p className="text-slate-300">No anomalies detected. All steps performing normally.</p>
           </div>
         ) : (
           data.map((step) => (
-            <div key={step.stepId} className="glass-card rounded-2xl p-6">
+            <div key={step.stepId} className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-6">
               <h2 className="font-[var(--font-heading)] text-xl font-semibold text-white">
                 {step.workflow} → {step.stepTitle}
               </h2>
