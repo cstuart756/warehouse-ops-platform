@@ -61,8 +61,8 @@ export default function Home() {
         <section className="stagger-fade delay-2 glass-card overflow-hidden rounded-3xl border border-cyan-200/20 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
           <div className="overflow-hidden rounded-[1.25rem] bg-slate-950/70">
             <Image
-              src="/images/flowforge-before-after.svg"
-              alt="Before and after comparison of warehouse operations with guided workflows"
+              src="/images/flowforge-hero-illustration.svg"
+              alt="Illustration of guided warehouse workflows and operational visibility"
               width={1600}
               height={900}
               className="h-auto w-full rounded-[1.25rem] object-cover"
