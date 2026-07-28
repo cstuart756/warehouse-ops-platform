@@ -5,13 +5,15 @@ import Link from "next/link";
 
 export default function InsightsDashboard() {
   const [data, setData] = useState<any[]>([]);
+  const [workflowInsights, setWorkflowInsights] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   async function load() {
     try {
       const res = await fetch("/api/analytics/insights");
       const json = await res.json();
-      setData(json);
+      setData(json.steps ?? []);
+      setWorkflowInsights(json.workflowInsights ?? []);
     } catch (error) {
       console.error("Failed to load insights:", error);
     } finally {
@@ -67,6 +69,31 @@ export default function InsightsDashboard() {
           <div className="text-sm font-semibold uppercase tracking-[0.24em] text-green-300">Recommendations</div>
           <div className="mt-3 text-3xl font-semibold text-white">{data.reduce((sum, step) => sum + step.recommendations.length, 0)}</div>
           <p className="mt-2 text-sm text-slate-400">Suggested actions generated for the team.</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-white">Workflow health summary</h2>
+          <span className="text-sm text-slate-400">Operational snapshot</span>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {workflowInsights.map((workflow) => (
+            <div key={workflow.workflowId} className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-white">{workflow.workflowTitle}</h3>
+                <span className="text-sm text-cyan-300">{workflow.averageCompletion}% complete</span>
+              </div>
+              <div className="mt-3 text-sm text-slate-400">
+                {workflow.completedTasks} completed • {workflow.inProgressTasks} in progress • {workflow.totalTasks} total
+              </div>
+              {workflow.mostCommonIssue && (
+                <div className="mt-3 rounded-xl border border-amber-400/20 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+                  Most common issue: {workflow.mostCommonIssue}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 

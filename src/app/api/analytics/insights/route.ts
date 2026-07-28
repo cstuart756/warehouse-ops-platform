@@ -1,6 +1,7 @@
 import { prisma } from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 import { getTaskProgressMetrics } from "../../../../lib/task-progress";
+import { summariseWorkflowInsights } from "../../../../lib/workflow-insights";
 
 function detectAnomalies(stepStats: any) {
   const anomalies: string[] = [];
@@ -30,12 +31,29 @@ function generateRecommendations(stepStats: any, anomalies: string[]) {
 
 export async function GET() {
   try {
-    const steps = await prisma.step.findMany({
-      include: {
-        progress: true,
-        workflow: true,
-      },
-    });
+    const [steps, tasks, workflows] = await Promise.all([
+      prisma.step.findMany({
+        include: {
+          progress: true,
+          workflow: true,
+        },
+      }),
+      prisma.task.findMany({
+        select: {
+          id: true,
+          status: true,
+          workflowId: true,
+        },
+      }),
+      prisma.workflow.findMany({
+        select: {
+          id: true,
+          title: true,
+        },
+      }),
+    ])
+
+    const workflowInsights = summariseWorkflowInsights(tasks, workflows)
 
     const results = steps.map((step) => {
       const started = step.progress.length;
@@ -85,7 +103,10 @@ export async function GET() {
       };
     });
 
-    return NextResponse.json(results);
+    return NextResponse.json({
+      steps: results,
+      workflowInsights,
+    });
   } catch (error) {
     console.error("Error in /api/analytics/insights:", error);
     return NextResponse.json(
