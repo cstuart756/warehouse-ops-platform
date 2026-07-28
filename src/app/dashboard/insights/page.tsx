@@ -27,6 +27,14 @@ export default function InsightsDashboard() {
 
   if (loading) return <div className="p-6">Loading insights...</div>;
 
+  const priorityWorkflow = workflowInsights.reduce((best, workflow) => {
+    if (!best) return workflow;
+    if ((workflow.inProgressTasks + workflow.totalTasks) === 0) return best;
+    return workflow.inProgressTasks > best.inProgressTasks ? workflow : best;
+  }, workflowInsights[0]);
+
+  const watchlistSteps = data.filter((step) => step.anomalies.length > 0);
+
   return (
     <div className="space-y-6 p-6">
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -62,7 +70,7 @@ export default function InsightsDashboard() {
         </div>
         <div className="rounded-2xl border border-amber-300/20 bg-slate-900/50 p-4">
           <div className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Watchlist</div>
-          <div className="mt-3 text-3xl font-semibold text-white">{data.filter((step) => step.anomalies.length > 0).length}</div>
+          <div className="mt-3 text-3xl font-semibold text-white">{watchlistSteps.length}</div>
           <p className="mt-2 text-sm text-slate-400">Steps with issues that need immediate attention.</p>
         </div>
         <div className="rounded-2xl border border-green-400/20 bg-slate-900/50 p-4">
@@ -71,6 +79,21 @@ export default function InsightsDashboard() {
           <p className="mt-2 text-sm text-slate-400">Suggested actions generated for the team.</p>
         </div>
       </div>
+
+      {priorityWorkflow ? (
+        <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 p-4">
+          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-rose-200">Priority focus</div>
+          <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="font-semibold text-white">{priorityWorkflow.workflowTitle}</div>
+              <div className="text-sm text-rose-100">{priorityWorkflow.inProgressTasks} active task{priorityWorkflow.inProgressTasks === 1 ? '' : 's'} and {priorityWorkflow.totalTasks} total tracked.</div>
+            </div>
+            <div className="rounded-full border border-rose-400/30 bg-slate-950/50 px-3 py-1 text-sm font-semibold text-rose-100">
+              {priorityWorkflow.mostCommonIssue ?? 'Steady flow'}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <div className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-6">
         <div className="flex items-center justify-between">
