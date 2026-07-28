@@ -12,6 +12,13 @@ function getTaskProgressMetrics({ currentStep, totalSteps, completedSteps }) {
     : Math.min(safeCurrentStep + 1, safeTotalSteps)
 
   const isComplete = safeTotalSteps > 0 && safeCompletedSteps >= safeTotalSteps
+  const stepsRemaining = safeTotalSteps === 0 ? 0 : Math.max(safeTotalSteps - safeCompletedSteps, 0)
+  const statusLabel = isComplete
+    ? 'Task complete'
+    : stepsRemaining === 0
+      ? 'Ready to continue'
+      : `${stepsRemaining} step${stepsRemaining === 1 ? '' : 's'} remaining`
+
   const nextLabel = isComplete ? 'Finished' : safeCurrentStep >= safeTotalSteps - 1 ? 'Complete Task' : 'Next step'
 
   return {
@@ -19,6 +26,8 @@ function getTaskProgressMetrics({ currentStep, totalSteps, completedSteps }) {
     currentStepNumber,
     isComplete,
     nextLabel,
+    stepsRemaining,
+    statusLabel,
   }
 }
 

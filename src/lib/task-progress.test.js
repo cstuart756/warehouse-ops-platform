@@ -17,3 +17,10 @@ test('marks a task complete when all steps are done', () => {
   assert.equal(metrics.isComplete, true)
   assert.equal(metrics.nextLabel, 'Finished')
 })
+
+test('surfaces remaining steps and a human readable status', () => {
+  const metrics = getTaskProgressMetrics({ currentStep: 1, totalSteps: 4, completedSteps: 1 })
+
+  assert.equal(metrics.stepsRemaining, 3)
+  assert.equal(metrics.statusLabel, '3 steps remaining')
+})

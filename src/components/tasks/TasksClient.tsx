@@ -101,7 +101,12 @@ export default function TasksClient() {
                     <div className="mt-3 h-2 w-full max-w-xl rounded-full bg-slate-800">
                       <div className="h-2 rounded-full bg-cyan-400 transition-all" style={{ width: `${metrics.percentComplete}%` }} />
                     </div>
-                    <div className="mt-2 text-sm text-slate-400">Progress: {metrics.percentComplete}% complete</div>
+                    <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-400">
+                      <span>Progress: {metrics.percentComplete}% complete</span>
+                      <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">
+                        {metrics.statusLabel}
+                      </span>
+                    </div>
                   </div>
                   <Link href={`/tasks/${task.id}`} className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-500">
                     Open task

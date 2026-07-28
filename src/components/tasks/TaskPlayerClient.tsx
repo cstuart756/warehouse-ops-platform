@@ -100,6 +100,7 @@ export default function TaskPlayerClient({ id }: { id: string }) {
           <div className="rounded-2xl border border-cyan-200/20 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
             <div className="font-semibold text-white">{percentComplete}% complete</div>
             <div className="mt-1">Step {metrics.currentStepNumber} of {steps.length}</div>
+            <div className="mt-1 text-cyan-200">{metrics.statusLabel}</div>
           </div>
         </div>
       </section>
