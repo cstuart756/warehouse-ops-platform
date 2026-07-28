@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server'
 import { prisma } from '../../../../lib/prisma'
 import { auth } from '@clerk/nextjs/server'
 
+function sanitizeText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
 // GET all workflows or GET single workflow by ID
 export async function GET(req: Request) {
   try {
@@ -34,10 +38,15 @@ export async function POST(req: Request) {
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
+    const title = sanitizeText(body.title)
+    if (!title) {
+      return NextResponse.json({ error: 'Workflow title is required.' }, { status: 400 })
+    }
+
     const workflow = await prisma.workflow.create({
       data: {
-        title: body.title,
-        description: body.description
+        title,
+        description: sanitizeText(body.description) || null
       },
       include: { steps: true }
     })
@@ -55,11 +64,16 @@ export async function PUT(req: Request) {
     if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
+    const title = sanitizeText(body.title)
+    if (!title) {
+      return NextResponse.json({ error: 'Workflow title is required.' }, { status: 400 })
+    }
+
     const workflow = await prisma.workflow.update({
       where: { id: body.id },
       data: {
-        title: body.title,
-        description: body.description
+        title,
+        description: sanitizeText(body.description) || null
       },
       include: { steps: true }
     })
