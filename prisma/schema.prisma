@@ -2,12 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// For local demo we default to SQLite. For production switch back to PostgreSQL
-// and set `DATABASE_URL` in your environment to your Postgres connection string.
+// Production deployments use the Heroku Postgres connection string provided via
+// the DATABASE_URL environment variable. Local development can still be pointed at
+// a different database if needed by overriding that variable.
 datasource db {
-  provider = "sqlite"
-  // Local dev default file DB. Change to env("DATABASE_URL") for Postgres in production.
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
