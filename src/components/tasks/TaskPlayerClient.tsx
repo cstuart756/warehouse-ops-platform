@@ -20,6 +20,7 @@ export default function TaskPlayerClient({ id }: { id: string }) {
   }
 
   useEffect(() => {
+    setStepAcknowledged(false)
     loadTask()
   }, [id])
 
@@ -57,48 +58,67 @@ export default function TaskPlayerClient({ id }: { id: string }) {
     setSubmitting(false)
   }
 
-  if (loading) return <div>Loading...</div>
-  if (!task || !workflow) return <div>Task not found.</div>
-
-  if (!steps.length) {
+  if (loading) {
     return (
-      <div>
-        <h1 className="text-2xl font-semibold mb-4">Task: {task.id}</h1>
-        <div className="p-4 border rounded bg-white text-gray-700">
-          This workflow has no steps yet.
+      <div className="space-y-4">
+        <div className="h-24 animate-pulse rounded-3xl bg-slate-900/60" />
+        <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <div className="h-80 animate-pulse rounded-3xl bg-slate-900/60" />
+          <div className="h-80 animate-pulse rounded-3xl bg-slate-900/60" />
         </div>
       </div>
     )
   }
 
-  return (
-    <div>
-      <div className="mb-4 flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold">Task: {task.id}</h1>
-          <p className="text-sm text-gray-600">Workflow: {workflow.title}</p>
-        </div>
-        <div className="text-right text-sm text-gray-600">
-          <div className="font-medium text-gray-900">{percentComplete}% complete</div>
-          <div>Step {metrics.currentStepNumber} of {steps.length}</div>
-        </div>
+  if (!task || !workflow) {
+    return (
+      <div className="rounded-3xl border border-slate-700/70 bg-slate-900/50 p-6 text-slate-300">
+        <h1 className="text-2xl font-semibold text-white">Task not found</h1>
+        <p className="mt-2 text-sm">The requested task could not be loaded right now.</p>
       </div>
+    )
+  }
 
-      <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="rounded border bg-white p-4 space-y-4">
+  if (!steps.length) {
+    return (
+      <div className="rounded-3xl border border-slate-700/70 bg-slate-900/50 p-6 text-slate-300">
+        <h1 className="text-2xl font-semibold text-white">Task: {task.id}</h1>
+        <p className="mt-2 text-sm">This workflow has no steps yet, so there is nothing to execute.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      <section className="rounded-3xl border border-cyan-200/20 bg-slate-900/50 p-6 shadow-lg shadow-cyan-500/10">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-sm font-semibold uppercase tracking-wide text-gray-500">Progress</div>
-            <div className="mt-2 h-2 rounded bg-gray-200">
-              <div className="h-2 rounded bg-blue-600 transition-all" style={{ width: `${percentComplete}%` }} />
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Task execution</p>
+            <h1 className="mt-2 text-3xl font-semibold text-white">{workflow.title}</h1>
+            <p className="mt-2 text-sm text-slate-300">{workflow.description}</p>
+          </div>
+          <div className="rounded-2xl border border-cyan-200/20 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
+            <div className="font-semibold text-white">{percentComplete}% complete</div>
+            <div className="mt-1">Step {metrics.currentStepNumber} of {steps.length}</div>
+          </div>
+        </div>
+      </section>
+
+      <div className="grid gap-4 lg:grid-cols-[300px_minmax(0,1fr)]">
+        <aside className="space-y-4 rounded-3xl border border-slate-700/70 bg-slate-900/50 p-4">
+          <div>
+            <div className="text-sm font-semibold uppercase tracking-wide text-slate-400">Progress</div>
+            <div className="mt-2 h-2 rounded-full bg-slate-800">
+              <div className="h-2 rounded-full bg-cyan-400 transition-all" style={{ width: `${percentComplete}%` }} />
             </div>
           </div>
 
-          <div className="rounded bg-amber-50 border border-amber-200 p-3 text-sm text-amber-900">
-            Read the step, perform the action, and tick the confirmation box before moving on.
+          <div className="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-3 text-sm text-amber-200">
+            Read the step carefully, complete the action, and confirm you are ready before moving on.
           </div>
 
           <div>
-            <div className="text-sm font-semibold uppercase tracking-wide text-gray-500">Steps</div>
+            <div className="text-sm font-semibold uppercase tracking-wide text-slate-400">Workflow steps</div>
             <ol className="mt-3 space-y-2 text-sm">
               {steps.map((step: any, index: number) => {
                 const done = task.progress?.some((entry: any) => entry.stepId === step.id && entry.completed)
@@ -107,14 +127,14 @@ export default function TaskPlayerClient({ id }: { id: string }) {
                 return (
                   <li
                     key={step.id}
-                    className={`rounded border px-3 py-2 ${current ? 'border-cyan-300 bg-cyan-50' : 'border-gray-200 bg-white'}`}
+                    className={`rounded-2xl border px-3 py-3 ${current ? 'border-cyan-300/40 bg-cyan-400/10' : done ? 'border-green-400/20 bg-green-500/10' : 'border-slate-700/70 bg-slate-950/50'}`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="font-medium text-gray-900">{index + 1}. {step.title}</div>
-                        <div className="text-xs text-gray-500">{done ? 'Completed' : current ? 'Current step' : 'Pending'}</div>
+                        <div className="font-medium text-white">{index + 1}. {step.title}</div>
+                        <div className="mt-1 text-xs text-slate-400">{done ? 'Completed' : current ? 'Current step' : 'Pending'}</div>
                       </div>
-                      <div className={`text-xs font-semibold ${done ? 'text-green-700' : current ? 'text-cyan-700' : 'text-gray-400'}`}>
+                      <div className={`text-xs font-semibold ${done ? 'text-green-300' : current ? 'text-cyan-300' : 'text-slate-500'}`}>
                         {done ? 'Done' : current ? 'Now' : 'Next'}
                       </div>
                     </div>
@@ -124,57 +144,57 @@ export default function TaskPlayerClient({ id }: { id: string }) {
             </ol>
           </div>
 
-          <button onClick={() => router.push('/tasks')} className="w-full px-3 py-2 bg-gray-200 rounded">
+          <button onClick={() => router.push('/tasks')} className="w-full rounded-lg border border-slate-600/70 bg-slate-800/70 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:bg-slate-700/70">
             Back to tasks
           </button>
         </aside>
 
-        <section className="rounded border bg-white p-4 space-y-4">
+        <section className="space-y-4 rounded-3xl border border-slate-700/70 bg-slate-900/50 p-4">
           {currentStep ? (
             <>
               <div>
-                <div className="text-sm font-semibold uppercase tracking-wide text-gray-500">Current step</div>
-                <div className="mt-1 text-2xl font-semibold">{currentStep.title}</div>
-                <div className="mt-2 text-sm text-gray-600">{currentStep.content}</div>
+                <div className="text-sm font-semibold uppercase tracking-wide text-slate-400">Current step</div>
+                <div className="mt-1 text-2xl font-semibold text-white">{currentStep.title}</div>
+                <div className="mt-2 text-sm leading-6 text-slate-300">{currentStep.content}</div>
               </div>
 
               {currentStep.videoUrl && (
-                <div className="overflow-hidden rounded border bg-gray-50">
+                <div className="overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-950/70">
                   <iframe
                     src={currentStep.videoUrl}
                     title={currentStep.title}
-                    className="w-full min-h-[320px]"
+                    className="min-h-[320px] w-full"
                   />
                 </div>
               )}
 
-              <div className="rounded border bg-gray-50 p-3 text-sm text-gray-700">
-                Current step status: <span className="font-medium">{currentProgress?.completed ? 'Completed' : 'In progress'}</span>
+              <div className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-3 text-sm text-slate-300">
+                Current step status: <span className="font-medium text-white">{currentProgress?.completed ? 'Completed' : 'In progress'}</span>
               </div>
 
-              <label className="flex items-start gap-3 rounded border p-3 text-sm">
+              <label className="flex items-start gap-3 rounded-2xl border border-slate-700/70 bg-slate-950/70 p-3 text-sm text-slate-300">
                 <input
                   type="checkbox"
                   checked={stepAcknowledged}
                   onChange={event => setStepAcknowledged(event.target.checked)}
-                  className="mt-1"
+                  className="mt-1 accent-cyan-400"
                 />
                 <span>I have completed this step and I am ready to continue.</span>
               </label>
             </>
           ) : isComplete ? (
-            <div className="rounded border border-green-200 bg-green-50 p-4 text-sm text-green-900">
+            <div className="rounded-2xl border border-green-400/20 bg-green-500/10 p-4 text-sm text-green-200">
               This task is complete. You can return to the task list or review the workflow steps.
             </div>
           ) : (
-            <div className="text-sm text-gray-700">No current step is available yet.</div>
+            <div className="text-sm text-slate-300">No current step is available yet.</div>
           )}
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={nextStep}
               disabled={!stepAcknowledged || submitting || isComplete}
-              className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-lg bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isComplete ? 'Finished' : submitting ? 'Saving...' : nextLabel}
             </button>
