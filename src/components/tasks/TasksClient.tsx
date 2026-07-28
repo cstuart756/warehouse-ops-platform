@@ -38,29 +38,49 @@ export default function TasksClient() {
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-4">Tasks</h1>
-      <section className="mb-6">
-        <h2 className="font-medium">Start a Task</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+    <div className="space-y-6">
+      <section className="rounded-3xl border border-cyan-200/20 bg-slate-900/50 p-6 shadow-lg shadow-cyan-500/10">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Task execution</p>
+            <h1 className="mt-2 text-3xl font-semibold text-white">Pick up a workflow and move it forward</h1>
+            <p className="mt-3 max-w-2xl text-sm text-slate-300">
+              Start a guided operation, follow each step in sequence, and keep progress visible for the next shift.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-cyan-200/20 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
+            {loading ? 'Loading your active work...' : `${tasks.length} active task${tasks.length === 1 ? '' : 's'}`}
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">Start a task</h2>
+          <span className="text-sm text-slate-400">Choose a workflow to begin</span>
+        </div>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {workflows.map(workflow => (
-            <div key={workflow.id} className="p-4 border rounded">
-              <div className="font-semibold">{workflow.title}</div>
-              <div className="text-sm text-gray-600">{workflow.description}</div>
-              <button onClick={() => startTask(workflow.id)} className="mt-2 px-3 py-1 bg-blue-600 text-white rounded">
-                Start
-              </button>
+            <div key={workflow.id} className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-4">
+              <div className="font-semibold text-white">{workflow.title}</div>
+              <div className="mt-2 text-sm text-slate-400">{workflow.description}</div>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="text-sm text-cyan-300">{workflow.steps?.length ?? 0} steps</span>
+                <button onClick={() => startTask(workflow.id)} className="rounded-lg bg-cyan-300 px-3 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200">
+                  Start workflow
+                </button>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       <section>
-        <div className="flex items-center justify-between">
-          <h2 className="font-medium">Active Tasks</h2>
-          {loading && <span className="text-sm text-gray-500">Loading...</span>}
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">Active tasks</h2>
+          {loading && <span className="text-sm text-slate-400">Loading...</span>}
         </div>
-        <ul className="mt-3 space-y-2">
+        <div className="space-y-3">
           {tasks.map(task => {
             const totalSteps = task.workflow?.steps?.length ?? 0
             const completedSteps = task.progress?.filter((progress: any) => progress.completed).length ?? 0
@@ -71,23 +91,26 @@ export default function TasksClient() {
             })
 
             return (
-              <li key={task.id} className="p-3 border rounded flex justify-between items-center">
-                <div>
-                  <div className="font-semibold">{task.workflow?.title ?? 'Untitled workflow'}</div>
-                  <div className="text-sm text-gray-600">
-                    Status: {task.status} • Step: {metrics.currentStepNumber} of {totalSteps || '0'}
+              <div key={task.id} className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-4">
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0">
+                    <div className="font-semibold text-white">{task.workflow?.title ?? 'Untitled workflow'}</div>
+                    <div className="mt-1 text-sm text-slate-400">
+                      Status: {task.status} • Step {metrics.currentStepNumber} of {totalSteps || '0'}
+                    </div>
+                    <div className="mt-3 h-2 w-full max-w-xl rounded-full bg-slate-800">
+                      <div className="h-2 rounded-full bg-cyan-400 transition-all" style={{ width: `${metrics.percentComplete}%` }} />
+                    </div>
+                    <div className="mt-2 text-sm text-slate-400">Progress: {metrics.percentComplete}% complete</div>
                   </div>
-                  <div className="text-sm text-gray-500">Progress: {metrics.percentComplete}%</div>
-                </div>
-                <div>
-                  <Link href={`/tasks/${task.id}`} className="px-3 py-1 bg-green-600 text-white rounded">
-                    Open
+                  <Link href={`/tasks/${task.id}`} className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-500">
+                    Open task
                   </Link>
                 </div>
-              </li>
+              </div>
             )
           })}
-        </ul>
+        </div>
       </section>
     </div>
   )
