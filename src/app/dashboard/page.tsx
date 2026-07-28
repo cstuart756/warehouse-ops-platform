@@ -53,6 +53,16 @@ export default function DashboardPage() {
             </p>
           </div>
 
+          <div className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-4">
+            <div className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Role-based access</div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">Operator</span>
+              <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-200">Supervisor</span>
+              <span className="rounded-full border border-green-500/20 bg-green-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-green-200">Admin</span>
+            </div>
+            <p className="mt-3 text-sm text-slate-400">Each role now has clearer entry points for day-to-day execution, supervision, and playbook administration.</p>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Link
               href="/dashboard/insights"

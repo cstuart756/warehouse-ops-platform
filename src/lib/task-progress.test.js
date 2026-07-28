@@ -1,6 +1,6 @@
 const test = require('node:test')
 const assert = require('node:assert/strict')
-const { getTaskProgressMetrics } = require('./task-progress.js')
+const { getTaskProgressMetrics, getTaskHistorySummary } = require('./task-progress.js')
 
 test('calculates percentage for an in-progress task', () => {
   const metrics = getTaskProgressMetrics({ currentStep: 1, totalSteps: 3, completedSteps: 1 })
@@ -23,4 +23,22 @@ test('surfaces remaining steps and a human readable status', () => {
 
   assert.equal(metrics.stepsRemaining, 3)
   assert.equal(metrics.statusLabel, '3 steps remaining')
+})
+
+test('builds a compact audit trail for completed task history', () => {
+  const history = getTaskHistorySummary({
+    workflow: {
+      steps: [{ id: 'step-1', title: 'Inspect goods' }],
+    },
+    progress: [{
+      stepId: 'step-1',
+      completed: true,
+      completedAt: '2026-07-28T10:30:00.000Z',
+      step: { title: 'Inspect goods' },
+    }],
+  })
+
+  assert.equal(history.completedCount, 1)
+  assert.equal(history.auditTrail[0].label, 'Inspect goods')
+  assert.equal(history.latestEntry?.label, 'Inspect goods')
 })

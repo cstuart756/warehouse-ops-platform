@@ -31,6 +31,24 @@ function getTaskProgressMetrics({ currentStep, totalSteps, completedSteps }) {
   }
 }
 
+function getTaskHistorySummary(task) {
+  const completedEntries = (task?.progress ?? [])
+    .filter((entry) => entry?.completed)
+    .map((entry) => ({
+      id: entry.id,
+      label: entry.step?.title || entry.stepTitle || 'Completed step',
+      completedAt: entry.completedAt,
+    }))
+    .sort((a, b) => new Date(b.completedAt || 0) - new Date(a.completedAt || 0))
+
+  return {
+    completedCount: completedEntries.length,
+    auditTrail: completedEntries,
+    latestEntry: completedEntries[0] || null,
+  }
+}
+
 module.exports = {
   getTaskProgressMetrics,
+  getTaskHistorySummary,
 }

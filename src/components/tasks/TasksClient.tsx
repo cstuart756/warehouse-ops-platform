@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getTaskProgressMetrics } from '../../lib/task-progress'
+import { getTaskHistorySummary, getTaskProgressMetrics } from '../../lib/task-progress'
 
 export default function TasksClient() {
   const [tasks, setTasks] = useState<any[]>([])
@@ -89,6 +89,7 @@ export default function TasksClient() {
               totalSteps,
               completedSteps,
             })
+            const history = getTaskHistorySummary(task)
 
             return (
               <div key={task.id} className="rounded-2xl border border-slate-700/70 bg-slate-900/50 p-4">
@@ -107,6 +108,12 @@ export default function TasksClient() {
                         {metrics.statusLabel}
                       </span>
                     </div>
+                    {history.auditTrail.length > 0 ? (
+                      <div className="mt-3 rounded-xl border border-slate-700/70 bg-slate-950/50 px-3 py-2 text-sm text-slate-400">
+                        <div className="font-semibold uppercase tracking-[0.2em] text-slate-500">Latest audit trail</div>
+                        <div className="mt-1 text-slate-300">{history.latestEntry?.label} • {history.completedCount} completed step{history.completedCount === 1 ? '' : 's'}</div>
+                      </div>
+                    ) : null}
                   </div>
                   <Link href={`/tasks/${task.id}`} className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-500">
                     Open task

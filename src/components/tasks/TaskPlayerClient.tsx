@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getTaskProgressMetrics } from '../../lib/task-progress'
+import { getTaskHistorySummary, getTaskProgressMetrics } from '../../lib/task-progress'
 
 export default function TaskPlayerClient({ id }: { id: string }) {
   const [task, setTask] = useState<any>(null)
@@ -38,6 +38,7 @@ export default function TaskPlayerClient({ id }: { id: string }) {
   const percentComplete = metrics.percentComplete
   const isComplete = metrics.isComplete || task?.status === 'COMPLETED' || activeStepIndex >= steps.length
   const nextLabel = metrics.nextLabel
+  const history = useMemo(() => getTaskHistorySummary(task), [task])
 
   async function nextStep() {
     if (!task || !stepAcknowledged || submitting) return
@@ -171,6 +172,12 @@ export default function TaskPlayerClient({ id }: { id: string }) {
 
               <div className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-3 text-sm text-slate-300">
                 Current step status: <span className="font-medium text-white">{currentProgress?.completed ? 'Completed' : 'In progress'}</span>
+              </div>
+
+              <div className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-3 text-sm text-slate-300">
+                <div className="font-semibold uppercase tracking-[0.2em] text-slate-500">Audit trail</div>
+                <div className="mt-2 text-slate-300">{history.completedCount > 0 ? `${history.completedCount} completed step${history.completedCount === 1 ? '' : 's'}` : 'No completed steps yet'}</div>
+                {history.latestEntry ? <div className="mt-1 text-cyan-200">Latest: {history.latestEntry.label}</div> : null}
               </div>
 
               <label className="flex items-start gap-3 rounded-2xl border border-slate-700/70 bg-slate-950/70 p-3 text-sm text-slate-300">
