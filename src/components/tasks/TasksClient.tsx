@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { getTaskProgressMetrics } from '../../lib/task-progress'
 
 export default function TasksClient() {
   const [tasks, setTasks] = useState<any[]>([])
@@ -63,16 +64,20 @@ export default function TasksClient() {
           {tasks.map(task => {
             const totalSteps = task.workflow?.steps?.length ?? 0
             const completedSteps = task.progress?.filter((progress: any) => progress.completed).length ?? 0
-            const percent = totalSteps ? Math.round((completedSteps / totalSteps) * 100) : 0
+            const metrics = getTaskProgressMetrics({
+              currentStep: task.currentStep,
+              totalSteps,
+              completedSteps,
+            })
 
             return (
               <li key={task.id} className="p-3 border rounded flex justify-between items-center">
                 <div>
                   <div className="font-semibold">{task.workflow?.title ?? 'Untitled workflow'}</div>
                   <div className="text-sm text-gray-600">
-                    Status: {task.status} • Step: {Math.min(task.currentStep + 1, totalSteps || task.currentStep + 1)} of {totalSteps || '0'}
+                    Status: {task.status} • Step: {metrics.currentStepNumber} of {totalSteps || '0'}
                   </div>
-                  <div className="text-sm text-gray-500">Progress: {percent}%</div>
+                  <div className="text-sm text-gray-500">Progress: {metrics.percentComplete}%</div>
                 </div>
                 <div>
                   <Link href={`/tasks/${task.id}`} className="px-3 py-1 bg-green-600 text-white rounded">

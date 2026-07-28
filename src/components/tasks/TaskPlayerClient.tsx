@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { getTaskProgressMetrics } from '../../lib/task-progress'
 
 export default function TaskPlayerClient({ id }: { id: string }) {
   const [task, setTask] = useState<any>(null)
@@ -28,12 +29,14 @@ export default function TaskPlayerClient({ id }: { id: string }) {
   const currentStep = steps[activeStepIndex]
   const currentProgress = task?.progress?.find((entry: any) => entry.stepId === currentStep?.id) ?? null
   const completedSteps = task?.progress?.filter((entry: any) => entry.completed).length ?? 0
-  const percentComplete = useMemo(() => {
-    if (!steps.length) return 0
-    return Math.round((completedSteps / steps.length) * 100)
-  }, [completedSteps, steps.length])
-  const isComplete = task?.status === 'COMPLETED' || activeStepIndex >= steps.length
-  const nextLabel = isComplete ? 'Finished' : activeStepIndex === steps.length - 1 ? 'Complete Task' : 'Next step'
+  const metrics = useMemo(() => getTaskProgressMetrics({
+    currentStep: activeStepIndex,
+    totalSteps: steps.length,
+    completedSteps,
+  }), [activeStepIndex, completedSteps, steps.length])
+  const percentComplete = metrics.percentComplete
+  const isComplete = metrics.isComplete || task?.status === 'COMPLETED' || activeStepIndex >= steps.length
+  const nextLabel = metrics.nextLabel
 
   async function nextStep() {
     if (!task || !stepAcknowledged || submitting) return
@@ -77,7 +80,7 @@ export default function TaskPlayerClient({ id }: { id: string }) {
         </div>
         <div className="text-right text-sm text-gray-600">
           <div className="font-medium text-gray-900">{percentComplete}% complete</div>
-          <div>Step {Math.min(activeStepIndex + 1, steps.length)} of {steps.length}</div>
+          <div>Step {metrics.currentStepNumber} of {steps.length}</div>
         </div>
       </div>
 

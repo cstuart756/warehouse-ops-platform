@@ -1,5 +1,6 @@
 import { prisma } from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
+import { getTaskProgressMetrics } from "../../../../lib/task-progress";
 
 function detectAnomalies(stepStats: any) {
   const anomalies: string[] = [];
@@ -68,12 +69,19 @@ export async function GET() {
       const anomalies = detectAnomalies(stepStats);
       const recommendations = generateRecommendations(stepStats, anomalies);
 
+      const metrics = getTaskProgressMetrics({
+        currentStep: step.progress.filter((p) => p.completed).length,
+        totalSteps: 1,
+        completedSteps: step.progress.filter((p) => p.completed).length,
+      })
+
       return {
         stepId: step.id,
         stepTitle: step.title,
         workflow: step.workflow.title,
         anomalies,
         recommendations,
+        progress: metrics,
       };
     });
 
