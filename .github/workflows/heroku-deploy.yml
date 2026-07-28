@@ -24,10 +24,22 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check Heroku deployment configuration
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+        run: |
+          if [ -z "${HEROKU_API_KEY}" ] || [ -z "${HEROKU_EMAIL}" ]; then
+            echo "Heroku deployment secrets are not configured. Skipping deploy."
+            echo "Set HEROKU_API_KEY and HEROKU_EMAIL in GitHub Secrets to enable automatic deploys."
+            exit 0
+          fi
+
       - name: Deploy to Heroku
+        if: ${{ secrets.HEROKU_API_KEY != '' && secrets.HEROKU_EMAIL != '' }}
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_app_name: warehouse-ops-platform-eu
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           usedocker: false
