@@ -5,55 +5,63 @@ export default function Home() {
   return (
     <main className="section-glow pb-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
-        <section className="hero-noise glass-card relative overflow-hidden rounded-3xl px-5 py-10 md:px-10 md:py-14">
+        <section className="hero-noise glass-card relative overflow-hidden rounded-3xl px-5 py-8 md:px-8 md:py-10">
           <div className="pointer-events-none absolute -left-16 top-10 h-44 w-44 rounded-full bg-cyan-300/20 blur-3xl" />
           <div className="pointer-events-none absolute -right-10 bottom-6 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
 
-          <header className="stagger-fade mb-10 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div className="stagger-fade max-w-3xl">
               <p className="mb-3 inline-block rounded-full border border-cyan-200/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
-                Operational Execution System
+                Operational execution platform
               </p>
-              <h1 className="font-[var(--font-heading)] text-4xl font-semibold leading-tight md:text-6xl">
-                <span className="headline-gradient">Train anyone.</span>{' '}
-                Run warehouse operations flawlessly.
+              <h1 className="font-[var(--font-heading)] text-4xl font-semibold leading-tight md:text-5xl lg:text-6xl">
+                <span className="headline-gradient">Guide every shift.</span>{' '}
+                Train every operator.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
-                Step-by-step guided workflows that eliminate errors, speed up onboarding,
-                and keep every shift moving with confidence.
+                Replace guesswork with clear step-by-step execution, faster onboarding, and real-time visibility for every task.
               </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/tasks"
+                  className="rounded-xl bg-cyan-300 px-6 py-3 text-center font-semibold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-200"
+                >
+                  Start demo
+                </Link>
+                <Link
+                  href="/admin/workflows"
+                  className="rounded-xl border border-cyan-200/50 bg-slate-900/40 px-6 py-3 text-center font-semibold text-cyan-100 transition hover:bg-cyan-400/10"
+                >
+                  Build workflow
+                </Link>
+              </div>
             </div>
-            <div className="stagger-fade delay-1 flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
-              <Link
-                href="/tasks"
-                className="rounded-xl bg-cyan-300 px-6 py-3 text-center font-semibold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-200"
-              >
-                Start Demo
-              </Link>
-              <Link
-                href="/admin/workflows"
-                className="rounded-xl border border-cyan-200/50 bg-slate-900/40 px-6 py-3 text-center font-semibold text-cyan-100 transition hover:bg-cyan-400/10"
-              >
-                Build Workflow
-              </Link>
-            </div>
-          </header>
 
-          <section className="stagger-fade delay-1 grid gap-4 md:grid-cols-3">
+            <div className="stagger-fade delay-1 rounded-3xl border border-cyan-200/20 bg-slate-950/70 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Why teams use FlowForge</p>
+              <ul className="mt-4 space-y-3 text-sm text-slate-300">
+                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Step-by-step guidance that keeps every operator aligned.</li>
+                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Instant visibility into completion, issues, and exceptions.</li>
+                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Built-in coaching so new hires ramp up faster with less supervision.</li>
+              </ul>
+            </div>
+          </div>
+
+          <section className="stagger-fade delay-1 mt-8 grid gap-4 md:grid-cols-3">
             <div className="glass-card rounded-2xl p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Error Rate</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Error rate</p>
               <p className="mt-2 text-3xl font-bold text-white">-40%</p>
-              <p className="mt-2 text-sm text-slate-300">Cut mistakes by replacing memory-dependent work with guided execution.</p>
+              <p className="mt-2 text-sm text-slate-300">Reduce rework with clear instructions at every checkpoint.</p>
             </div>
             <div className="glass-card rounded-2xl p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Training Speed</p>
-              <p className="mt-2 text-3xl font-bold text-white">2x Faster</p>
-              <p className="mt-2 text-sm text-slate-300">New hires learn in context instead of depending on paper SOPs.</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Training speed</p>
+              <p className="mt-2 text-3xl font-bold text-white">2x faster</p>
+              <p className="mt-2 text-sm text-slate-300">Help teams learn in context instead of relying on paper SOPs.</p>
             </div>
             <div className="glass-card rounded-2xl p-5">
               <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Compliance</p>
-              <p className="mt-2 text-3xl font-bold text-white">100% Visibility</p>
-              <p className="mt-2 text-sm text-slate-300">Track completion and exceptions instantly across every workflow step.</p>
+              <p className="mt-2 text-3xl font-bold text-white">100% visibility</p>
+              <p className="mt-2 text-sm text-slate-300">Track completion and exceptions instantly across every step.</p>
             </div>
           </section>
         </section>
