@@ -1,7 +1,7 @@
-"use client"
-
 import Link from 'next/link'
-import { useUser, SignOutButton } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
+import { SignOutButton } from '@clerk/nextjs'
+import { getOrCreateCurrentUser, isSuperAdmin } from '../../lib/current-user'
 
 const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
@@ -28,17 +28,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     )
   }
 
-  const { isLoaded, isSignedIn } = useUser()
+  return <AdminContent>{children}</AdminContent>
+}
 
-  if (!isLoaded) return <div>Loading...</div>
+async function AdminContent({ children }: { children: React.ReactNode }) {
+  const user = await getOrCreateCurrentUser()
 
-  if (!isSignedIn) {
-    return (
-      <div className="p-6 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-4">Admin (Protected)</h2>
-        <p>Please sign in to access the admin panel.</p>
-      </div>
-    )
+  if (!user) {
+    redirect('/sign-in')
+  }
+
+  if (!isSuperAdmin(user)) {
+    redirect('/dashboard')
   }
 
   return (

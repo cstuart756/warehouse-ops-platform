@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '../../../../lib/prisma'
-import { auth } from '@clerk/nextjs/server'
+import { requireSuperAdmin } from '../../../../lib/current-user'
 
 function sanitizeText(value: unknown) {
   return typeof value === 'string' ? value.trim() : ''
@@ -33,9 +33,7 @@ export async function GET(req: Request) {
 // POST create workflow
 export async function POST(req: Request) {
   try {
-    const session = await auth()
-    const userId = session?.userId
-    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!await requireSuperAdmin()) return NextResponse.json({ error: 'Super admin access required' }, { status: 403 })
 
     const body = await req.json()
     const title = sanitizeText(body.title)
@@ -59,9 +57,7 @@ export async function POST(req: Request) {
 // PUT update workflow
 export async function PUT(req: Request) {
   try {
-    const session = await auth()
-    const userId = session?.userId
-    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!await requireSuperAdmin()) return NextResponse.json({ error: 'Super admin access required' }, { status: 403 })
 
     const body = await req.json()
     const title = sanitizeText(body.title)
@@ -86,9 +82,7 @@ export async function PUT(req: Request) {
 // DELETE workflow
 export async function DELETE(req: Request) {
   try {
-    const session = await auth()
-    const userId = session?.userId
-    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!await requireSuperAdmin()) return NextResponse.json({ error: 'Super admin access required' }, { status: 403 })
 
     const body = await req.json()
     await prisma.workflow.delete({ where: { id: body.id } })
