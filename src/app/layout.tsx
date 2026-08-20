@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import React from 'react'
+import Link from 'next/link'
 import { Space_Grotesk, IBM_Plex_Sans } from 'next/font/google'
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { hasClerkConfig } from '../lib/clerk-config'
@@ -36,11 +37,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const body = (
     <>
-      <header className="flex items-center justify-end gap-3 border-b border-white/10 px-6 py-4 text-sm text-slate-200">
-        {headerContent}
+      <header className="site-header">
+        <div className="site-header__inner">
+          <Link href="/" className="brand-mark" aria-label="FlowForge home">
+            <span className="brand-mark__icon">F</span>
+            <span>FlowForge</span>
+          </Link>
+          <nav className="site-nav" aria-label="Primary navigation">
+            <Link href="/workflows">Workflows</Link>
+            <Link href="/training">Training</Link>
+            <Link href="/dashboard">Operations</Link>
+          </nav>
+          <div className="site-header__actions">
+            {headerContent}
+          </div>
+        </div>
       </header>
       <main className="min-h-screen">
-        <div className="max-w-6xl mx-auto p-6">{children}</div>
+        <div className="mx-auto max-w-7xl px-4 py-6 md:px-8">{children}</div>
       </main>
     </>
   )

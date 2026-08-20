@@ -3,70 +3,42 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="section-glow pb-6">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 md:gap-8">
-        <section className="hero-noise glass-card relative overflow-hidden rounded-3xl px-5 py-8 md:px-8 md:py-10">
-          <div className="pointer-events-none absolute -left-16 top-10 h-44 w-44 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="pointer-events-none absolute -right-10 bottom-6 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
-
-          <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
-            <div className="stagger-fade max-w-3xl">
-              <p className="mb-3 inline-block rounded-full border border-cyan-200/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
-                Operational execution platform
-              </p>
-              <h1 className="font-[var(--font-heading)] text-4xl font-semibold leading-tight md:text-5xl lg:text-6xl">
-                <span className="headline-gradient">Guide every shift.</span>{' '}
+    <main className="section-glow pb-10 md:pb-16">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 md:gap-10">
+        <section className="hero-shell">
+          <div className="hero-shell__content">
+            <div className="stagger-fade max-w-2xl">
+              <p className="eyebrow">Operational execution platform</p>
+              <h1 className="font-heading mt-5 text-4xl font-semibold leading-[1.04] tracking-tight text-white md:text-6xl lg:text-7xl">
+                <span className="headline-gradient">Guide every shift.</span><br />
                 Train every operator.
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
-                Replace guesswork with clear step-by-step execution, faster onboarding, and real-time visibility for every task.
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 md:text-lg">
+                Step-by-step workflows, faster onboarding, and live visibility for the teams moving your operation forward.
               </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/tasks"
-                  className="rounded-xl bg-cyan-300 px-6 py-3 text-center font-semibold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-200"
-                >
-                  Start demo
-                </Link>
-                <Link
-                  href="/admin/workflows"
-                  className="rounded-xl border border-cyan-200/50 bg-slate-900/40 px-6 py-3 text-center font-semibold text-cyan-100 transition hover:bg-cyan-400/10"
-                >
-                  Build workflow
-                </Link>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/tasks" className="button-primary">Start interactive demo <span aria-hidden="true">↗</span></Link>
+                <Link href="/admin/workflows" className="button-secondary">Build a workflow</Link>
               </div>
+              <p className="hero-note"><span aria-hidden="true">●</span> No credit card required <span aria-hidden="true">●</span> See results in minutes</p>
             </div>
-
-            <div className="stagger-fade delay-1 relative min-h-[22rem] overflow-hidden rounded-3xl border border-cyan-200/25 bg-slate-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:min-h-[28rem] lg:min-h-[34rem]">
+          </div>
+          <div className="hero-shell__visual stagger-fade delay-1">
               <Image
                 src="/images/41baf219-2083-4480-8963-24aafd2c881a.png"
                 alt="FlowForge warehouse operations hero showing guided workflows and live visibility"
                 fill
                 sizes="(max-width: 1024px) 100vw, 65vw"
-                className="object-cover object-[70%_center]"
+                className="object-cover object-[72%_center]"
                 priority
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/10 via-transparent to-slate-950/25" />
-            </div>
+              <div className="hero-shell__shade" />
           </div>
-
-          <section className="stagger-fade delay-1 mt-8 grid gap-4 md:grid-cols-3">
-            <div className="glass-card rounded-2xl p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Error rate</p>
-              <p className="mt-2 text-3xl font-bold text-white">-40%</p>
-              <p className="mt-2 text-sm text-slate-300">Reduce rework with clear instructions at every checkpoint.</p>
-            </div>
-            <div className="glass-card rounded-2xl p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Training speed</p>
-              <p className="mt-2 text-3xl font-bold text-white">2x faster</p>
-              <p className="mt-2 text-sm text-slate-300">Help teams learn in context instead of relying on paper SOPs.</p>
-            </div>
-            <div className="glass-card rounded-2xl p-5">
-              <p className="text-xs uppercase tracking-[0.16em] text-cyan-300">Compliance</p>
-              <p className="mt-2 text-3xl font-bold text-white">100% visibility</p>
-              <p className="mt-2 text-sm text-slate-300">Track completion and exceptions instantly across every step.</p>
-            </div>
-          </section>
+          <div className="hero-metrics">
+            <div><strong>40%</strong><span>fewer operational errors</span></div>
+            <div><strong>2x</strong><span>faster staff training</span></div>
+            <div><strong>100%</strong><span>process visibility</span></div>
+          </div>
         </section>
 
         <section className="stagger-fade delay-2 grid gap-6 lg:grid-cols-2">
