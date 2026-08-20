@@ -9,7 +9,12 @@ const bodyFont = IBM_Plex_Sans({ subsets: ['latin'], variable: '--font-body', we
 
 export const metadata = {
   title: 'Warehouse Ops Platform',
-  description: 'Guided workflows and training for warehouse operations'
+  description: 'Guided workflows and training for warehouse operations',
+  icons: {
+    icon: '/images/41baf219-2083-4480-8963-24aafd2c881a.png',
+    shortcut: '/images/41baf219-2083-4480-8963-24aafd2c881a.png',
+    apple: '/images/41baf219-2083-4480-8963-24aafd2c881a.png'
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
