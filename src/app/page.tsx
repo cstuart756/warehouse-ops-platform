@@ -9,7 +9,7 @@ export default function Home() {
           <div className="pointer-events-none absolute -left-16 top-10 h-44 w-44 rounded-full bg-cyan-300/20 blur-3xl" />
           <div className="pointer-events-none absolute -right-10 bottom-6 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
 
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
             <div className="stagger-fade max-w-3xl">
               <p className="mb-3 inline-block rounded-full border border-cyan-200/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
                 Operational execution platform
@@ -37,13 +37,16 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="stagger-fade delay-1 rounded-3xl border border-cyan-200/20 bg-slate-950/70 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Why teams use FlowForge</p>
-              <ul className="mt-4 space-y-3 text-sm text-slate-300">
-                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Step-by-step guidance that keeps every operator aligned.</li>
-                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Instant visibility into completion, issues, and exceptions.</li>
-                <li className="rounded-2xl border border-slate-700/70 bg-slate-900/50 px-4 py-3">Built-in coaching so new hires ramp up faster with less supervision.</li>
-              </ul>
+            <div className="stagger-fade delay-1 relative min-h-[22rem] overflow-hidden rounded-3xl border border-cyan-200/25 bg-slate-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:min-h-[28rem] lg:min-h-[34rem]">
+              <Image
+                src="/images/41baf219-2083-4480-8963-24aafd2c881a.png"
+                alt="FlowForge warehouse operations hero showing guided workflows and live visibility"
+                fill
+                sizes="(max-width: 1024px) 100vw, 65vw"
+                className="object-cover object-[70%_center]"
+                priority
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/10 via-transparent to-slate-950/25" />
             </div>
           </div>
 
@@ -64,19 +67,6 @@ export default function Home() {
               <p className="mt-2 text-sm text-slate-300">Track completion and exceptions instantly across every step.</p>
             </div>
           </section>
-        </section>
-
-        <section className="stagger-fade delay-2 glass-card overflow-hidden rounded-3xl border border-cyan-200/20 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
-          <div className="overflow-hidden rounded-[1.25rem] bg-slate-950/70">
-            <Image
-              src="/images/flowforge-hero-illustration.svg"
-              alt="Illustration of guided warehouse workflows and operational visibility"
-              width={1600}
-              height={900}
-              className="h-auto w-full rounded-[1.25rem] object-cover"
-              priority
-            />
-          </div>
         </section>
 
         <section className="stagger-fade delay-2 grid gap-6 lg:grid-cols-2">
