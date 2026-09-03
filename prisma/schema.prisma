@@ -2,9 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Production deployments use the Heroku Postgres connection string provided via
-// the DATABASE_URL environment variable. Local development can still be pointed at
-// a different database if needed by overriding that variable.
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -24,41 +21,41 @@ model Workflow {
   id          String   @id @default(cuid())
   title       String
   description String?
+  createdAt   DateTime @default(now())
   steps       Step[]
   tasks       Task[]
-  createdAt   DateTime @default(now())
 }
 
 model Step {
-  id         String   @id @default(cuid())
+  id         String     @id @default(cuid())
   title      String
   content    String
   videoUrl   String?
   order      Int
-  workflow   Workflow @relation(fields: [workflowId], references: [id])
   workflowId String
   progress   Progress[]
+  workflow   Workflow   @relation(fields: [workflowId], references: [id])
 }
 
 model Task {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   workflowId  String
-  workflow    Workflow @relation(fields: [workflowId], references: [id])
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  status      String   @default("PENDING")
-  currentStep Int      @default(0)
-  createdAt   DateTime @default(now())
+  status      String     @default("PENDING")
+  currentStep Int        @default(0)
+  createdAt   DateTime   @default(now())
   progress    Progress[]
+  user        User       @relation(fields: [userId], references: [id])
+  workflow    Workflow   @relation(fields: [workflowId], references: [id])
 }
 
 model Progress {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   stepId      String
-  step        Step     @relation(fields: [stepId], references: [id])
   taskId      String
-  task        Task     @relation(fields: [taskId], references: [id])
-  startedAt   DateTime @default(now())
-  completed   Boolean  @default(false)
+  startedAt   DateTime  @default(now())
+  completed   Boolean   @default(false)
   completedAt DateTime?
+  step        Step      @relation(fields: [stepId], references: [id])
+  task        Task      @relation(fields: [taskId], references: [id])
 }
