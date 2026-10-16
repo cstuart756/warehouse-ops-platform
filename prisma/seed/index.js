@@ -8,9 +8,9 @@ const prisma = new PrismaClient()
 // ---------------------------------------------------------------------------
 const workflows = [
   require('./workflows/01-safety-induction'),
-  // require('./workflows/02-goods-in'),
-  // require('./workflows/03-put-away'),
-  // require('./workflows/04-picking'),
+  require('./workflows/02-goods-in'),
+  require('./workflows/03-put-away'),
+  require('./workflows/04-picking'),
   // require('./workflows/05-packing'),
   // require('./workflows/06-dispatch'),
   // require('./workflows/07-cycle-count'),
