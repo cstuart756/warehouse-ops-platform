@@ -7,6 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+// ---------------------------------------------------------------------------
+// Models
+// ---------------------------------------------------------------------------
+
 model User {
   id        String   @id @default(cuid())
   clerkId   String?  @unique
@@ -18,23 +32,53 @@ model User {
 }
 
 model Workflow {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
+  code        String     @unique
   title       String
   description String?
-  createdAt   DateTime @default(now())
-  steps       Step[]
-  tasks       Task[]
+  department  String     @default("General")
+  difficulty  Difficulty @default(BEGINNER)
+  estimatedMinutes Int   @default(15)
+  passMark    Int        @default(80)
+  renewalMonths Int?
+  supervisorSignOffRequired Boolean @default(false)
+  learningObjectives String[] @default([])
+  createdAt   DateTime   @default(now())
+
+  steps                Step[]
+  tasks                Task[]
+  assessmentQuestions  AssessmentQuestion[]
 }
 
 model Step {
   id         String     @id @default(cuid())
   title      String
+  objective  String?
   content    String
   videoUrl   String?
   order      Int
+  expectedMinutes Int   @default(5)
+  warnings   String[]   @default([])
+  completionChecks String[] @default([])
+  requiresVideo Boolean @default(false)
+  requiresConfirmation Boolean @default(true)
+  requiresSupervisorSignOff Boolean @default(false)
   workflowId String
   progress   Progress[]
   workflow   Workflow   @relation(fields: [workflowId], references: [id])
+}
+
+model AssessmentQuestion {
+  id            String   @id @default(cuid())
+  workflowId    String
+  order         Int      @default(0)
+  question      String
+  options       String[] @default([])
+  correctOption Int
+  explanation   String
+  workflow      Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
 }
 
 model Task {

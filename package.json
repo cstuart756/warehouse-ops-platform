@@ -11,7 +11,7 @@
     "start": "next start",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:studio": "prisma studio",
-    "prisma:seed": "node prisma/seed.js"
+    "prisma:seed": "node prisma/seed/index.js"
   },
   "dependencies": {
     "@clerk/nextjs": "latest",
