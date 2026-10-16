@@ -1,7 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+export default async function Home() {
+  // Signed-in users go straight to their dashboard, not the marketing page
+  const { userId } = await auth()
+  if (userId) {
+    redirect('/dashboard')
+  }
+
   return (
     <main className="section-glow pb-10 md:pb-16">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 md:gap-10">
