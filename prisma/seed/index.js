@@ -11,10 +11,10 @@ const workflows = [
   require('./workflows/02-goods-in'),
   require('./workflows/03-put-away'),
   require('./workflows/04-picking'),
-  // require('./workflows/05-packing'),
-  // require('./workflows/06-dispatch'),
-  // require('./workflows/07-cycle-count'),
-  // require('./workflows/08-damaged-goods'),
+  require('./workflows/05-packing'),
+  require('./workflows/06-dispatch'),
+  require('./workflows/07-cycle-count'),
+  require('./workflows/08-damaged-goods'),
 ]
 
 // ---------------------------------------------------------------------------
