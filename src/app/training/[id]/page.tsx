@@ -303,4 +303,4 @@ export default function TrainingPage() {
       </div>
     </div>
   )
-}n
+}
