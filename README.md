@@ -10,7 +10,7 @@
   [![Clerk](https://img.shields.io/badge/Auth-Clerk-6C47FF?style=flat-square)](https://clerk.com/)
   [![Deploy](https://img.shields.io/badge/Deploy-Heroku%20(EU)-430098?style=flat-square&logo=heroku)](https://www.heroku.com/)
 
-  **[Live Demo](https://warehouse-ops-platform-eu-120c7c0e63c3.herokuapp.com)** • **[Report a Bug](https://github.com/cstuart756/warehouse-ops-platform/issues)** • **[Request a Feature](https://github.com/cstuart756/warehouse-ops-platform/issues)**
+  **[Live Demo](https://warehouse-ops-platform-eu-f10943893b48.herokuapp.com)** • **[Report a Bug](https://github.com/cstuart756/warehouse-ops-platform/issues)** • **[Request a Feature](https://github.com/cstuart756/warehouse-ops-platform/issues)**
 </div>
 
 ---
@@ -50,7 +50,7 @@ FlowForge ships with a fully authored, production-ready 8-module training curric
 
 - **Frontend:** Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS
 - **Backend:** Next.js Server Actions, REST API Routes
-- **Database:** PostgreSQL (hosted on AWS EU-West-1), Prisma ORM
+- **Database:** PostgreSQL (hosted on Supabase), Prisma ORM
 - **Authentication:** Clerk (Middleware & Role-based Access)
 - **DevOps:** GitHub Actions (CI/CD), Heroku (PaaS)
 
